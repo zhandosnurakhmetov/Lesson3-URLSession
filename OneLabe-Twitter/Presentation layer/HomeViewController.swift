@@ -9,7 +9,7 @@ import SnapKit
 
 final class HomeViewController: UIViewController {
 
-    private var posts: [Post] = []
+    private var viewModel = HomeViewModel()
 
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
@@ -26,12 +26,27 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureIndicatorView()
-        fetchPosts()
+        viewModel.fetchPosts()
+        bindViewModel()
+    }
+
+    private func bindViewModel() {
+        viewModel.didStartRequest = {
+            self.activityIndicator.startAnimating()
+        }
+        viewModel.didEndRequest = {
+            self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+        }
+        viewModel.didGetError = { error in
+            print(error)
+        }
     }
 
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: String(describing: PostTableViewCell.self))
         tableView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -45,43 +60,25 @@ final class HomeViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
     }
-
-    private func fetchPosts() {
-        activityIndicator.startAnimating()
-        let urlString = "https://jsonplaceholder.typicode.com/posts"
-        guard let url = URL(string: urlString) else { return }
-
-        let request = URLRequest(url: url)
-
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let data = data {
-                do {
-                    let posts = try JSONDecoder().decode([Post].self, from: data)
-                    self.posts = posts
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        self.activityIndicator.stopAnimating()
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }.resume()
-    }
 }
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return viewModel.posts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = String(describing: PostTableViewCell.self)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? PostTableViewCell else { return UITableViewCell() }
-        cell.usernameLabel.text = posts[indexPath.row].title
-        cell.titleLabel.text = posts[indexPath.row].body
+        cell.usernameLabel.text = viewModel.posts[indexPath.row].title
+        cell.titleLabel.text = viewModel.posts[indexPath.row].body
         return cell
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let post = viewModel.posts[indexPath.row]
+        viewModel.updatePostLikeCount(id: post.id)
     }
 }

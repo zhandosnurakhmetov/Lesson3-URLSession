@@ -13,8 +13,13 @@
 		8443375F2592305F00CC8108 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8443375E2592305F00CC8108 /* Assets.xcassets */; };
 		844337622592305F00CC8108 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844337602592305F00CC8108 /* LaunchScreen.storyboard */; };
 		8443376D259231A800CC8108 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443376C259231A800CC8108 /* HomeViewController.swift */; };
+		8467F648259CA7ED00867D08 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467F647259CA7ED00867D08 /* HomeViewModel.swift */; };
+		8467F653259CB17300867D08 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467F652259CB17300867D08 /* PostService.swift */; };
 		84ADA12825923296009FDFBA /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ADA12725923296009FDFBA /* PostTableViewCell.swift */; };
 		84ADA12C259235DF009FDFBA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ADA12B259235DF009FDFBA /* Post.swift */; };
+		84D5C58D259CB31300512A9F /* PostDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D5C58C259CB31300512A9F /* PostDataProvider.swift */; };
+		84D5C590259CB3E700512A9F /* PostsLocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D5C58F259CB3E700512A9F /* PostsLocalStorage.swift */; };
+		84D5C593259CB68600512A9F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D5C592259CB68600512A9F /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +32,13 @@
 		844337612592305F00CC8108 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		844337632592305F00CC8108 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8443376C259231A800CC8108 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		8467F647259CA7ED00867D08 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		8467F652259CB17300867D08 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		84ADA12725923296009FDFBA /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		84ADA12B259235DF009FDFBA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		84D5C58C259CB31300512A9F /* PostDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataProvider.swift; sourceTree = "<group>"; };
+		84D5C58F259CB3E700512A9F /* PostsLocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsLocalStorage.swift; sourceTree = "<group>"; };
+		84D5C592259CB68600512A9F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		FF29D76A0F4E417F6608F663 /* Pods-OneLabe-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneLabe-Twitter.debug.xcconfig"; path = "Target Support Files/Pods-OneLabe-Twitter/Pods-OneLabe-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,8 +75,9 @@
 		844337542592305E00CC8108 /* OneLabe-Twitter */ = {
 			isa = PBXGroup;
 			children = (
-				84ADA12725923296009FDFBA /* PostTableViewCell.swift */,
-				8443376C259231A800CC8108 /* HomeViewController.swift */,
+				8467F651259CB13600867D08 /* Core layer */,
+				8467F64C259CB12200867D08 /* Service layer */,
+				8467F64B259CB10800867D08 /* Presentation layer */,
 				84433770259231EA00CC8108 /* Others */,
 				844337632592305F00CC8108 /* Info.plist */,
 				84ADA12B259235DF009FDFBA /* Post.swift */,
@@ -83,6 +94,34 @@
 				844337572592305E00CC8108 /* SceneDelegate.swift */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		8467F64B259CB10800867D08 /* Presentation layer */ = {
+			isa = PBXGroup;
+			children = (
+				8467F647259CA7ED00867D08 /* HomeViewModel.swift */,
+				84ADA12725923296009FDFBA /* PostTableViewCell.swift */,
+				8443376C259231A800CC8108 /* HomeViewController.swift */,
+			);
+			path = "Presentation layer";
+			sourceTree = "<group>";
+		};
+		8467F64C259CB12200867D08 /* Service layer */ = {
+			isa = PBXGroup;
+			children = (
+				8467F652259CB17300867D08 /* PostService.swift */,
+				84D5C592259CB68600512A9F /* AuthService.swift */,
+			);
+			path = "Service layer";
+			sourceTree = "<group>";
+		};
+		8467F651259CB13600867D08 /* Core layer */ = {
+			isa = PBXGroup;
+			children = (
+				84D5C58C259CB31300512A9F /* PostDataProvider.swift */,
+				84D5C58F259CB3E700512A9F /* PostsLocalStorage.swift */,
+			);
+			path = "Core layer";
 			sourceTree = "<group>";
 		};
 		92FE1E083718BE3764C72188 /* Frameworks */ = {
@@ -216,8 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				844337562592305E00CC8108 /* AppDelegate.swift in Sources */,
+				8467F648259CA7ED00867D08 /* HomeViewModel.swift in Sources */,
+				8467F653259CB17300867D08 /* PostService.swift in Sources */,
 				84ADA12C259235DF009FDFBA /* Post.swift in Sources */,
+				84D5C58D259CB31300512A9F /* PostDataProvider.swift in Sources */,
 				844337582592305E00CC8108 /* SceneDelegate.swift in Sources */,
+				84D5C590259CB3E700512A9F /* PostsLocalStorage.swift in Sources */,
+				84D5C593259CB68600512A9F /* AuthService.swift in Sources */,
 				8443376D259231A800CC8108 /* HomeViewController.swift in Sources */,
 				84ADA12825923296009FDFBA /* PostTableViewCell.swift in Sources */,
 			);
